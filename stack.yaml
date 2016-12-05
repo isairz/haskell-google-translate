@@ -40,6 +40,7 @@ packages:
 - location:
     git: git@github.com:silkapp/hs-tls
     commit: 30402228df33f4ea2ab4c077b7f2d60091ceffff
+  extra-dep: true
   subdirs:
     - core
 # Dependency packages to be pulled from upstream that are not in the resolver
