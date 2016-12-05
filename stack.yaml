@@ -37,6 +37,11 @@ resolver: lts-7.12
 # will not be run. This is useful for tweaking upstream packages.
 packages:
 - '.'
+- location:
+    git: git@github.com:silkapp/hs-tls
+    commit: 30402228df33f4ea2ab4c077b7f2d60091ceffff
+  subdirs:
+    - core
 # Dependency packages to be pulled from upstream that are not in the resolver
 # (e.g., acme-missiles-0.3)
 extra-deps: []
