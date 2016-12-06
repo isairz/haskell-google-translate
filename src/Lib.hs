@@ -3,6 +3,7 @@ module Lib
     ) where
 
 import Token
+import Data.Aeson (Value)
 import Network.HTTP.Simple
 import Data.ByteString.UTF8
 import qualified Data.ByteString.Lazy.UTF8 as L8
@@ -12,7 +13,7 @@ queryString :: String -> String -> String -> String -> [(B8.ByteString, Maybe B8
 queryString sl tl src tk = [ ("client", Just "t")
                            , ("sl", Just $ fromString sl)
                            , ("tl", Just $ fromString tk)
-                           , ("hl", Just "en")
+                           , ("hl", Just $ fromString tk)
                            , ("dt", Just "at")
                            , ("dt", Just "bd")
                            , ("dt", Just "ex")
@@ -39,5 +40,6 @@ translate :: String -> String -> String -> IO String
 translate sl tl src = do
   token <- getToken src
   response <- httpLBS $ setRequestQueryString (queryString sl tl src token)
-                      $ "https://translate.google.com/translate_a/single"
-  return . show $ getResponseBody response
+                       $ "https://translate.google.com/translate_a/single"
+  let temp = getResponseBody response
+  return $ show temp
