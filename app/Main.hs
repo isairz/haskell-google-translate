@@ -8,5 +8,7 @@ toKorean = translate "auto" "ko"
 
 main :: IO ()
 main = do
-  result <- toKorean "最低です"
-  uprint result
+  let src = "最低です"
+  result <- toKorean src
+  uprint $ "src: " ++ src
+  uprint $ "result: " ++ result
