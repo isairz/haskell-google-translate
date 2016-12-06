@@ -1,7 +1,7 @@
 module Main where
 
-import Lib
-import Text.Show.Unicode
+import           Lib
+import           Text.Show.Unicode
 
 toKorean :: String -> IO String
 toKorean = translate "auto" "ko"

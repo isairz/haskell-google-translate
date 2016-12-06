@@ -2,14 +2,13 @@ module Lib
     ( translate
     ) where
 
-import Token
-import Data.Aeson (Value)
-import Network.HTTP.Simple
-import Text.Show.Unicode
-import qualified Data.ByteString.Char8 as B8
-import qualified Data.ByteString.UTF8 as B8
+import qualified Data.ByteString.Char8      as B8
 import qualified Data.ByteString.Lazy.Char8 as L8
-import qualified Data.ByteString.Lazy.UTF8 as L8
+import qualified Data.ByteString.Lazy.UTF8  as L8
+import qualified Data.ByteString.UTF8       as B8
+import           Network.HTTP.Simple
+import           Text.Show.Unicode
+import           Token
 
 queryString :: String -> String -> String -> String -> [(B8.ByteString, Maybe B8.ByteString)]
 queryString sl tl src tk = [ ("client", Just "t")

@@ -2,13 +2,13 @@ module Token
     ( getToken
     ) where
 
+import           Codec.Binary.UTF8.String         as UTF8
 import           Data.Bits
+import qualified Data.ByteString.Lazy.Char8       as L8
 import           Data.Char
 import           Network.HTTP.Simple
-import           Text.Regex.Posix ((=~))
+import           Text.Regex.Posix                 ((=~))
 import           Text.Regex.Posix.ByteString.Lazy
-import           Codec.Binary.UTF8.String as UTF8
-import qualified Data.ByteString.Lazy.Char8 as L8
 
 getToken :: String -> IO String
 getToken src = do
@@ -24,9 +24,9 @@ updateTKK = do
 parseTKK :: L8.ByteString -> (Integer, Integer)
 parseTKK body = (time, key)
   where pat = "TKK=[^ ]* a\\\\x3d([0-9]+);var b\\\\x3d(-?[0-9]+);return ([0-9]+)" :: L8.ByteString
-        (_,_,_,(a:b:c:_)) = (body =~ pat) :: (L8.ByteString, L8.ByteString, L8.ByteString, [L8.ByteString])
+        (_,_,_,a:b:c:_) = (body =~ pat) :: (L8.ByteString, L8.ByteString, L8.ByteString, [L8.ByteString])
         time = read $ L8.unpack c
-        key = (read $ L8.unpack a) + (read $ L8.unpack b)
+        key = read (L8.unpack a) + read (L8.unpack b)
 
 generateTk :: (Integer, Integer) -> String -> String
 generateTk (time, key) src = do
@@ -34,9 +34,9 @@ generateTk (time, key) src = do
   let r1 = foldl (\r c -> xr (r + c) "+-a^+6") time utf8
   let r2 = xor (xr r1 "+-3^+b+-f") key;
   let r3 = mod r2 1000000
-  (show r3) ++ "." ++ (show $ xor r3 time)
+  show r3 ++ "." ++ show (xor r3 time)
 
-xr :: Integer -> [Char] -> Integer
+xr :: Integer -> String -> Integer
 xr r (a:b:c:rest) = xr r' rest
   where r1 = digitToInt c
         r2 = (if b == '+' then shiftR else shiftL) r r1
