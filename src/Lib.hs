@@ -8,6 +8,6 @@ import qualified Data.ByteString.Lazy.Char8 as L8
 
 translate :: String -> IO String
 translate src = do
-  token <- getToken
+  token <- getToken src
   return token
 
