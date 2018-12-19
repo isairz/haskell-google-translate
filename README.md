@@ -22,4 +22,4 @@ main = do
 ```
 
 ## Reference
-[@vitalets/google-translate-api](https://github.com/vitalets/google-translate-api)
+[@vitalets/google-translate-api](https://github.com/vitalets/google-translate-api) (Node.js Version)
