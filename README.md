@@ -8,5 +8,18 @@ A package that translate sentance by google for free
 
 This package is the result of reverse engineering on the [obfuscated and minified code](https://translate.google.co.kr/translate/releases/twsfe_w_20161128_RC03/r/js/desktop_module_main.js) used by Google to generate such token.
 
-## How it use
-Working in Progress
+## Example
+```haskell
+toKorean :: String -> IO String
+toKorean = translate "auto" "ko"
+
+main :: IO ()
+main = do
+  let src = "最低です"
+  result <- toKorean src
+  uprint $ "src: " ++ src
+  uprint $ "result: " ++ result
+```
+
+## Reference
+[@vitalets/google-translate-api](https://github.com/vitalets/google-translate-api)
